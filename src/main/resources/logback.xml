@@ -2,5 +2,9 @@
 <configuration>
 	<include resource="org/springframework/boot/logging/logback/base.xml"/>
 	<logger name="jdbc" level="OFF"/>
-	<logger name="jdbc.sqltiming" level="DEBUG"/>
+	<logger name="jdbc.sqltiming" level="OFF"/>
+	
+	<logger name="org.hibernate.SQL" level="TRACE" />
+	<logger name="org.hibernate.type" level="ERROR" />
+	<logger name="jdbc.sqlonly" level="TRACE"/>
 </configuration>

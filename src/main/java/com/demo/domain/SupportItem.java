@@ -1,12 +1,19 @@
 package com.demo.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -18,31 +25,44 @@ import lombok.Setter;
 @Setter									
 @Getter
 @NoArgsConstructor						// 기본 생성자
+@DynamicUpdate
 public class SupportItem {
 	@Id
 	@GeneratedValue						// 자동 채번
 	@Column(nullable = false)
 	private int id;
 	
-	@Column
-	private String item_name;
+	@Column(name="item_name")
+	private String itemName;
 	
-	@Column
-	private String item_price;
+	@Column(name="item_price")
+	private String itemPrice;
 	
-	@Column
-	private String item_img;
+	@Column(name="itemImg")
+	private String itemImg;
 	
-	@Column
-	private Date created_dt;
+	@Column(name="created_dt", updatable=false)
+	@CreatedDate
+	private LocalDateTime createdDt;
 	
-	@Column
-	private Date updated_dt;
+	@Column(name="updated_dt")
+	@LastModifiedDate
+	private LocalDateTime updatedDt;
 	
 	@Builder
-	public SupportItem(String item_name, String item_price, String item_img) {
-		this.item_name = item_name;
-		this.item_price = item_price;
-		this.item_img = item_img;
+	public SupportItem(String itemName, String itemPrice, String itemImg) {
+		this.itemName = itemName;
+		this.itemPrice = itemPrice;
+		this.itemImg = itemImg;
+	}
+	
+	@PrePersist
+	public void createdDt() {
+		this.createdDt = LocalDateTime.now();
+	}
+	
+	@PreUpdate
+	public void updatedDt() {
+		this.updatedDt = LocalDateTime.now();
 	}
 }

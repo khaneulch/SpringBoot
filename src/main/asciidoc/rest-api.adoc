@@ -8,7 +8,11 @@
 :sectanchors:
 
 [[api]]
-== Book Api
-api 에 관련된 설명을 이곳에 적습니다.
+== Insert Item Api
+아이템 insert
 
 include::{snippets}/testRestDocs/http-request.adoc[]
+include::{snippets}/testRestDocs/http-response.adoc[]
+
+include::{snippets}/testRestDocs/request-body.adoc[]
+include::{snippets}/testRestDocs/response-body.adoc[]
