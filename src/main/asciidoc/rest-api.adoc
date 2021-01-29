@@ -8,11 +8,26 @@
 :sectanchors:
 
 [[api]]
-== Insert Item Api
-아이템 insert
+== Item List All Api
+아이템 전체
 
-include::{snippets}/testRestDocs/http-request.adoc[]
-include::{snippets}/testRestDocs/http-response.adoc[]
+include::{snippets}/test-find-all/http-request.adoc[]
+include::{snippets}/test-find-all/http-response.adoc[]
 
-include::{snippets}/testRestDocs/request-body.adoc[]
-include::{snippets}/testRestDocs/response-body.adoc[]
+== Item List Page Api
+아이템 전체
+
+include::{snippets}/test-find-all-page/http-request.adoc[]
+include::{snippets}/test-find-all-page/http-response.adoc[]
+
+== Item Save Api
+아이템 저장/수정
+
+include::{snippets}/test-save-item/http-request.adoc[]
+include::{snippets}/test-save-item/http-response.adoc[]
+
+== Item Delete Api
+아이템 삭제
+
+include::{snippets}/test-delete-item/http-request.adoc[]
+include::{snippets}/test-delete-item/http-response.adoc[]

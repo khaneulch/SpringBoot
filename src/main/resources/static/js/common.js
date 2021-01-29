@@ -1,8 +1,7 @@
-import * as jQuery from './jquery.js';
+import $ from './jquery';
 
 var Common = {
-
-	fetch : async function( url, param, _callBack) {
+	async fetch( url, param, _callBack) {	
 		
 		let options = {
 			method: 'POST',
@@ -11,7 +10,7 @@ var Common = {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json;charset=UTF-8'
 			},
-			body: param ? JSON.stringify( param) : null
+			body: typeof param === 'object' ? JSON.stringify(param) : JSON.stringify({data : param})
 		};
 		
 
@@ -26,11 +25,12 @@ var Common = {
 						}
 					})
 				}
-			});
+			}
+		);
 	}
 };
 
-export default Common;
+export default Common; 
 
 // Vue.filter('currency', function (num) {
 //     if ( isNaN(num)) num = 0;

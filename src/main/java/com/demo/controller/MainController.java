@@ -21,23 +21,11 @@ import com.demo.service.SupportItemService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
+@RequestMapping("/api")
 public class MainController {
 	
 	@Autowired
 	SupportItemService supportItemService;
-
-	@RequestMapping("/jpa")
-	public void jpaTest( /*@RequestParam Map<String, Object> params*/SupportItem supportItem) {
-
-//		SupportItem supportItem = new SupportItem()
-//				.builder()
-//				.itemImg( params.get("itemImg") + "")
-//				.itemName( params.get("itemName") + "")
-//				.itemPrice( params.get("itemPrice") + "")
-//				.build();
-		
-		supportItemService.save(supportItem);
-	}
 	
 	@GetMapping("/{path}")
 	public String mainPage( @PathVariable(required=false, name="path") String path) {
@@ -55,18 +43,13 @@ public class MainController {
 	}
 	
 	@PostMapping("/findAllPage")
-	public ResponseEntity<Object> findAllPage( @RequestBody(required=false) String params) {
+	public ResponseEntity<Object> findAllPage( @RequestBody(required=false) Map<String, Object> m) {
 		
 		try {
-			Map<String, String> m = new HashMap<String, String>();
-			if( params != null && !params.equals("")) {
-				ObjectMapper mapper = new ObjectMapper();
-				m = mapper.readValue(params, Map.class);
-			}
 			
 			Pageable page = PageRequest.of( Integer.parseInt(m.getOrDefault("page", "0") + ""), 10);
 			
-			Page<SupportItem> list = supportItemService.findByItemNameLike(m.getOrDefault("search", "%"), page);
+			Page<SupportItem> list = supportItemService.findByItemNameLike(m.getOrDefault("search", "%") + "", page);
 			
 			return new ResponseEntity<>(list, HttpStatus.OK);
 			

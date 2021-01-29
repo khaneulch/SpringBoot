@@ -3,27 +3,28 @@
 	<div id="pagination">
 		<nav aria-label="Page navigation example">
 			<ul class="pagination">
-				<li class="page-item" v-for="i in pagearr" v-bind:key="i" v-bind:class="{active : i == pagenum + 1}"><a class="page-link" @click="pageChange(i)">{{i}}</a></li>				
+				<li class="page-item" v-for="i in pagearr" v-bind:key="i" v-bind:class="{active : i == number + 1}"><a class="page-link" @click="pageChange(i)">{{i}}</a></li>				
 			</ul>
 		</nav>
 	</div>
 </template>
 
 <script>
-		
-	var pageComp = Vue.component('pagination', {
+	import Common from '../../main/resources/static/js/common';
+
+	export default {
 		template	: '#pagination-template',
-		props		: ['total', 'pagenum', 'link'],
+		props		: ['totalPages', 'number', 'link'],
 		data() {
 			return {
 				pagearr : []
 			}
 		},
-		mounted() {
-			this.pageDataRender();
-		},
 		watch : {
-			pagenum : function() {
+			number() {
+				this.pageDataRender();
+			},
+			totalPages() {
 				this.pageDataRender();
 			}
 		},
@@ -35,31 +36,30 @@
 				if( page == 'prev') page = _arr[1] - 1;
 				if( page == 'next') page = _arr[_arr.length - 2] + 1;
 				
-				Common.fetch('/findAllPage', {page : String(page - 1)}, function( data) {
-					_vue.$root.content = data.content;
-					_vue.$root.number = data.number;
+				Common.fetch('/api/findAllPage', {page : String(page - 1)}, function( data) {
+					_vue.$emit('childs-event', data.content, data.number);
 				});
 			},
 			pageDataRender() {
 				this.pagearr = [];
-				var _total = this.total;
-				var _pageNum = this.pagenum;
-				if( this.total < 10) {
+				var _total = this.totalPages;
+				var _number = this.number;
+				if( _total < 10) {
 					for(var i = 1; i <= _total; i ++) {  
 						this.pagearr.push(i);
 					}
 				} else if( _total >= 10) {
-					if( _pageNum < 5) {
-						for( var i = 1; i <= _pageNum + 4; i++) {
+					if( _number < 5) {
+						for( var i = 1; i <= _number + 4; i++) {
 							this.pagearr.push(i);
 						}
 					} else {
-						if( _pageNum + 4 > _total) {
-							for( var i = _pageNum - 4; i <= _total; i++) {
+						if( _number + 4 > _total) {
+							for( var i = _number - 4; i <= _total; i++) {
 								this.pagearr.push(i);
 							}
-						} else if( _pageNum + 4 <= _total) {
-							for( var i = _pageNum - 4; i <= _pageNum + 4; i++) {
+						} else if( _number + 4 <= _total) {
+							for( var i = _number - 4; i <= _number + 4; i++) {
 								this.pagearr.push(i);
 							}
 						}
@@ -75,5 +75,5 @@
 				}
 			}
 		}
-	});
+	}
 </script>

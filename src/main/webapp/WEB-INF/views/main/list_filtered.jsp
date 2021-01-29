@@ -75,7 +75,7 @@
 
 <script>
 	$( function() {
-		Common.fetch('/findAllPage', {page : '0'}, vueListFiltered);
+		Common.fetch('/api/findAllPage', {page : '0'}, vueListFiltered);
 	});
 	
 	
@@ -154,7 +154,7 @@
 			isActive		: true,
 			itemName		: '',
 			itemPrice		: '',
-			link			: '/findAllPage'
+			link			: '/api/findAllPage'
 		};
 		
 		$.extend( model, resp);
@@ -168,7 +168,7 @@
 					//if( v.length >= 2) {
 						var param = {search : '%' + v + '%'};
 						var _vue = this;
-						Common.fetch('/findAllPage', param, function (data) {
+						Common.fetch('/api/findAllPage', param, function (data) {
 							_vue.content = data.content;
 						});
 					//}
@@ -188,7 +188,7 @@
 					};
 					
 					if( params.itemName && params.itemPrice) {
-						Common.fetch('/saveItem', params, function (data) {
+						Common.fetch('/api/saveItem', params, function (data) {
 							_vue.content.splice( k, 1, data);
 						});
 					}
@@ -196,7 +196,7 @@
 				deleteItem : function( k) {
 					var _vue = this;
 					
-					Common.fetch('/deleteItem', {id : _vue.content[k].id}, function( data) {
+					Common.fetch('/api/deleteItem', {id : _vue.content[k].id}, function( data) {
 						if( data) {
 							_vue.content.splice(k, 1);
 						}
@@ -206,7 +206,7 @@
 					var _vue = this;
 					var params = { itemName : _vue.itemName, itemPrice : _vue.itemPrice};
 					if( params.itemName && params.itemPrice) {
-						Common.fetch('/saveItem', params, function (data) {
+						Common.fetch('/api/saveItem', params, function (data) {
 							_vue.itemName = '';
 							_vue.itemPrice = '';
 							_vue.content.push( data);

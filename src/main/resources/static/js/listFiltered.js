@@ -1,7 +1,6 @@
 
 import Vue from './vue';
 import Common from './common';
-//import * as pageComp from '../vue/pagination.vue';
 
 Common.fetch('/findAllPage', {page : '0'}, vueListFiltered);
 
