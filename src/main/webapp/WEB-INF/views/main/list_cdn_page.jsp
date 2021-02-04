@@ -6,8 +6,9 @@
 		<title>Vue Test</title>
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/style.css">
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+		<script src="../js/vue.js"></script>
+		<script src="../js/jquery.js"></script>
+		<script type="module" src="../js/list_cdn_page.js"></script>
 	</head>
 	<body>
 		<div id="example" class="container" v-cloak>
@@ -69,8 +70,6 @@
 			
 			<pagination @childs-event="parentMethod" :total-pages="totalPages" :number="number" :link="link"></pagination>
 		</div>
-	
-		<script type="module" src="../js/list_cdn_page.js"></script>
 	</body>
 </html>
 

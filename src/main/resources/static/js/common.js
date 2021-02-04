@@ -1,9 +1,9 @@
 import $ from './jquery';
 
 var Common = {
-	async fetch( url, param, _callBack) {	
+	fetch : function( url, param, _callBack) {	
 		
-		let options = {
+		var options = {
 			method: 'POST',
 			mode: 'cors',
 			headers: {
@@ -15,9 +15,9 @@ var Common = {
 		
 
 		fetch(url, options)
-			.then( response => {
+			.then( function( response) { //=> {
 				if( response && response.ok) {
-					response.text().then( data => {
+					response.text().then( function( data) { //=> {
 						var obj = data ? JSON.parse(data) : {data : true}; 
 						
 						if( $.isFunction( _callBack)) {
